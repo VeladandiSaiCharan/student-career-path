@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Career Path</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+
+  <!-- Welcome Page -->
+  <div id="welcome-page">
+    <h1>Welcome to Career Path Guide 🎓</h1>
+    <button id="btn-login">Login</button>
+    <button id="btn-signup">Sign Up</button>
+  </div>
+
+  <!-- Login Page -->
+  <div id="login-page" style="display:none;">
+    <h2>Login</h2>
+    <form id="form-login">
+      <input id="login-email" type="email" placeholder="Email" required>
+      <input id="login-password" type="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <!-- Signup Page -->
+  <div id="signup-page" style="display:none;">
+    <h2>Sign Up</h2>
+    <form id="form-signup">
+      <input id="signup-name" type="text" placeholder="Full Name" required>
+      <input id="signup-email" type="email" placeholder="Email" required>
+      <input id="signup-password" type="password" placeholder="Password" required>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+
+  <!-- Profile Page -->
+  <div id="profile-page" style="display:none;">
+    <h2>Complete Your Profile</h2>
+    <form id="profile-form">
+      <input id="profile-name" type="text" placeholder="Full Name" required>
+
+      <label for="education-level">Education Level</label>
+      <input id="education-level" type="text" placeholder="e.g., Intermediate, Undergraduate, Postgraduate" required>
+
+      <label for="course">Course / Stream</label>
+      <input id="course" type="text" placeholder="e.g., B.Tech CSE, B.Com, MBBS" required>
+
+      <label for="career-interests">Career Interests</label>
+      <input id="career-interests" type="text" placeholder="e.g., Software Developer, IAS, Data Scientist">
+
+      <label for="hobbies">Other Interests / Hobbies</label>
+      <input id="hobbies" type="text" placeholder="e.g., Cricket, Writing, Photography">
+
+      <label for="skills">Skills (comma separated)</label>
+      <input id="skills" type="text" placeholder="e.g., C, Java, HTML, Communication">
+
+      <label for="learning">Preferred Learning Mode</label>
+      <select id="learning">
+        <option value="">No preference</option>
+        <option>College / University Degree</option>
+        <option>Internships</option>
+        <option>Bootcamps</option>
+        <option>Online</option>
+        <option>Self-learning / Personal Projects</option>
+      </select>
+
+      <label for="location">Location (optional)</label>
+      <input id="location" type="text" placeholder="City, Country (optional)">
+
+      <div class="form-actions">
+        <button type="submit">Save & Continue</button>
+        <button type="button" id="btn-skip-profile">Skip for now</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Dashboard Page -->
+  <div id="dashboard-page" style="display:none;" class="home-page">
+    <div class="dashboard-container">
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <h2>CareerPath</h2>
+        <ul>
+          <li id="nav-home">Home</li>
+          <li id="nav-profile">Profile</li>
+          <li id="nav-recommendations">Recommendations</li>
+          <li id="nav-chatbot">Chatbot</li>
+          <li id="nav-progress">Progress</li>
+          <li id="nav-logout">Logout</li>
+        </ul>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+
+        <!-- Home Section -->
+        <div id="section-home" class="section">
+          <h1 id="welcome-user">Hi User</h1>
+          <p>Welcome to your career dashboard 🚀</p>
+
+          <!-- Summary Card -->
+          <div class="card summary-card">
+            <h2>Your Summary</h2>
+            <p><strong>🎓 Education:</strong> <span id="summary-education"></span></p>
+            <p><strong>📘 Course:</strong> <span id="summary-course"></span></p>
+            <p><strong>💼 Career Interests:</strong> <span id="summary-career"></span></p>
+            <p><strong>📍 Location:</strong> <span id="summary-location"></span></p>
+          </div>
+
+          <!-- Quick Access -->
+          <div class="card shortcuts-card">
+            <h2>Quick Access</h2>
+            <ul>
+              <li><button id="go-profile">👤 Profile</button></li>
+              <li><button id="go-recommendations">🎯 Career Guidance</button></li>
+              <li><button id="go-chatbot">🤖 AI Chatbot</button></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div id="section-profile" class="section" style="display:none;">
+          <h1>Your Profile</h1>
+          <div class="profile-card">
+            <p><strong>👤 Name:</strong> <span id="display-name"></span></p>
+            <p><strong>📧 Email:</strong> <span id="display-email"></span></p>
+            <p><strong>🎓 Education:</strong> <span id="display-education"></span></p>
+            <p><strong>📘 Course:</strong> <span id="display-course"></span></p>
+            <p><strong>💼 Career Interests:</strong> <span id="display-career"></span></p>
+            <p><strong>🎯 Hobbies & Passions:</strong> <span id="display-hobbies"></span></p>
+            <p><strong>🛠️ Skills:</strong> <span id="display-skills"></span></p>
+            <p><strong>📚 Learning Mode:</strong> <span id="display-learning"></span></p>
+            <p><strong>📍 Location:</strong> <span id="display-location"></span></p>
+          </div>
+        </div>
+
+        <!-- Recommendations Section -->
+        <div id="section-recommendations" class="section" style="display:none;">
+          <h1>Recommendations</h1>
+          <p>AI generated career & skill learning recommendations will appear here.</p>
+          <div id="recommendations-list"></div>
+        </div>
+
+        <!-- Chatbot Section -->
+        <div id="section-chatbot" class="section" style="display:none;">
+          <h1>AI Chatbot</h1>
+          <p>Ask questions to your AI assistant here.</p>
+        </div>
+
+        <!-- Progress Section -->
+        <div id="section-progress" class="section" style="display:none;">
+          <h1>Your Progress</h1>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
