@@ -4,8 +4,30 @@
   <meta charset="UTF-8">
   <title>Student Career Path</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="auth-page">
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="#" id="brand-link"><strong>CareerPath</strong></a>
+      </div>
+      <nav class="main-nav" id="main-nav">
+        <a href="#" data-section="home">Home</a>
+        <a href="#" data-section="recommendations">Recommendations</a>
+        <a href="#" data-section="chatbot">Chat</a>
+        <a href="#" data-section="progress">Progress</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
 
   <!-- Welcome Page -->
   <div id="welcome-page">
@@ -139,26 +161,94 @@
 
         <!-- Recommendations Section -->
         <div id="section-recommendations" class="section" style="display:none;">
-          <h1>Recommendations</h1>
-          <p>AI generated career & skill learning recommendations will appear here.</p>
-          <div id="recommendations-list"></div>
+          <h1>Career Recommendations</h1>
+          <p>The career recommendations feature is currently under maintenance. We're working on bringing you enhanced career guidance soon!</p>
+          <div id="recommendations-list">
+            <div class="card">
+              <h3>👋 Looking for guidance?</h3>
+              <p>While we upgrade our recommendation system, you can:</p>
+              <ul>
+                <li>Complete your profile with detailed information</li>
+                <li>Set clear learning goals in the Progress section</li>
+                <li>Explore educational resources and courses independently</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <!-- Chatbot Section -->
         <div id="section-chatbot" class="section" style="display:none;">
-          <h1>AI Chatbot</h1>
-          <p>Ask questions to your AI assistant here.</p>
+          <h1>Career Guidance Chat</h1>
+          <div class="chatbot-container">
+            <div class="card">
+              <h3>🔧 Under Maintenance</h3>
+              <p>We're currently upgrading our chat system to provide you with better career guidance.</p>
+              <p>In the meantime, you can:</p>
+              <ul>
+                <li>Update your profile with your latest skills and interests</li>
+                <li>Track your learning goals in the Progress section</li>
+                <li>Stay tuned for our enhanced career guidance features!</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <!-- Progress Section -->
         <div id="section-progress" class="section" style="display:none;">
           <h1>Your Progress</h1>
+          <div class="progress-grid">
+            <div class="progress-card">
+              <div class="progress-header">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Education Progress</h3>
+              </div>
+              <div class="progress-content">
+                <p>Track your educational milestones and achievements here. Coming soon!</p>
+              </div>
+            </div>
+
+            <div class="progress-card">
+              <div class="progress-header">
+                <i class="fas fa-briefcase"></i>
+                <h3>Career Development</h3>
+              </div>
+              <div class="progress-content">
+                <p>Monitor your career development activities and skills progress. Coming soon!</p>
+              </div>
+            </div>
+
+            <div class="progress-card">
+              <div class="progress-header">
+                <i class="fas fa-tasks"></i>
+                <h3>Learning Goals</h3>
+              </div>
+              <div id="learning-goals" class="goals-list">
+                <!-- Goals will be added dynamically -->
+              </div>
+              <button id="add-goal" class="add-goal-btn">
+                <i class="fas fa-plus"></i> Add Learning Goal
+              </button>
+            </div>
+
+            <div class="progress-card">
+              <div class="progress-header">
+                <i class="fas fa-chart-line"></i>
+                <h3>Activity Timeline</h3>
+              </div>
+              <div id="activity-timeline" class="timeline">
+                <!-- Timeline entries will be added dynamically -->
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
     </div>
   </div>
 
+  <!-- Markdown parser + sanitizer (load before app.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
   <script type="module" src="./app.js"></script>
 </body>
 </html>

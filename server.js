@@ -2,55 +2,75 @@ import express from "express";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
 const PORT = 3000;
 
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`, {
+    body: req.body,
+    query: req.query,
+    headers: req.headers
+  });
+  next();
+});
+// Serve static files
+app.use(express.static(path.join(__dirname)));
+
+// AI-Related Functions have been temporarily removed and will be reimplemented later
+
+// Configure CORS for development
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://127.0.0.1:5500',
+      'http://localhost:5500'
+    ];
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    }
+    console.warn('Blocked CORS request from origin:', origin);
+    return callback(new Error('Not allowed by CORS'));
+  },
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Accept']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cors()); // allow cross-origin requests from frontend
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+// Basic endpoints for service status
+app.get("/api/status", (req, res) => {
+  res.json({ status: "ok", message: "Server is running" });
+});
 
-app.post("/api/recommend", async (req, res) => {
-  try {
-    const { userData } = req.body;
-    if (!userData) return res.status(400).json({ error: "No user data provided" });
+// Temporary disabled endpoints with proper response
+app.post("/api/chatbot", (req, res) => {
+  res.status(503).json({ 
+    error: "Chatbot service is temporarily unavailable",
+    message: "This feature is currently under maintenance"
+  });
+});
 
-    const prompt = `
-You are an expert career counselor in India.
-Given this student's details, generate:
-1. Top 5 career options.
-2. Suggested education/skills paths.
-3. Short personalized progress summary.
+app.post("/api/recommend", (req, res) => {
+  res.status(503).json({ 
+    error: "Recommendations service is temporarily unavailable",
+    message: "This feature is currently under maintenance"
+  });
+});
 
-Student Details:
-Name: ${userData.name}
-Education Level: ${userData.educationLevel}
-Course: ${userData.course}
-Skills: ${(userData.skills || []).join(", ")}
-Hobbies: ${userData.hobbies}
-Learning Interests: ${userData.learning}
-Location: ${userData.location}
-    `;
-
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${GEMINI_API_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
-      }
-    );
-
-    const data = await response.json();
-    console.log("Gemini API full response:", JSON.stringify(data, null, 2));
-    const text =data?.candidates?.[0]?.content?.parts?.[0]?.text || "No response from Gemini API.";
-    res.json({ recommendation: text });
-  } catch (err) {
-    console.error("Gemini API Error:", err);
-    res.status(500).json({ error: "Failed to fetch recommendation" });
-  }
+// Serve index.html for root path
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, () => console.log(`✅ Server running at http://localhost:${PORT}`));
